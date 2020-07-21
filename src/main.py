@@ -1,7 +1,19 @@
-from crud.create import create_record
+import csv
 
-pick_text = "Pick one of the options below:\n1) Create new record\nq) Exit"
+from globals import db_fields, db_file, db_exists
+from crud import create, read
+
+
+pick_text = "\nPick one of the options below:\n1) Create new record\n2) Read all existing records\nq) Exit"
 is_running = True
+
+
+def initialize_db():
+    with open(db_file, "w") as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=db_fields)
+        writer.writeheader()
+    global db_exists
+    db_exists = True
 
 
 def handle_choice(choice):
@@ -9,11 +21,22 @@ def handle_choice(choice):
         print("Closing program ...")
         exit()
     elif choice == "1":
-        create_record()
+        create.create_record()
+    elif choice == "2":
+        read.read_all_records()
     else:
-        print("Unknown input.\n" + pick_text)
+        print("Unknown input." + pick_text)
 
 
+# Program start
+print("Welcome to PyCRUD!")
+if not db_exists:
+    print("Database not found. Created new one!")
+    initialize_db()
+else:
+    print("Database found!")
+
+# Main loop
 while is_running == True:
     print(pick_text)
     option = input()
