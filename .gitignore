@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 
 # CSV database
+database.csv
 src/database.csv

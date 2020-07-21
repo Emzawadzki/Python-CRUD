@@ -18,8 +18,9 @@ def initialize_db():
 
 def handle_choice(choice):
     if choice == "q":
+        global is_running
+        is_running = False
         print("Closing program ...")
-        exit()
     elif choice == "1":
         create.create_record()
     elif choice == "2":
