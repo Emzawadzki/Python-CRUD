@@ -2,6 +2,7 @@ import mysql.connector
 from mysql.connector import Error
 
 from globals import connection_config, main_table_name
+from crud import create
 
 pick_text = "\nPick one of the options below:\n1) Create new record\n2) Read all existing records\nq) Exit"
 is_running = True
@@ -39,8 +40,8 @@ def handle_choice(choice):
         global is_running
         is_running = False
         print("Closing program ...")
-    # elif choice == "1":
-    #     create.create_record()
+    elif choice == "1":
+        create.create_record()
     # elif choice == "2":
     #     read.read_all_records()
     else:
