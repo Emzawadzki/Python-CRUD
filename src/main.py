@@ -2,9 +2,9 @@ import mysql.connector
 from mysql.connector import Error
 
 from globals import connection_config, main_table_name
-from crud import create, read
+from crud import create, read, update
 
-pick_text = "\nPick one of the options below:\n1) Create new record\n2) Read all existing records\nq) Exit"
+pick_text = "\nPick one of the options below:\n1) Create new record\n2) Read all existing records\n3) Update record by ID\nq) Exit"
 is_running = True
 
 
@@ -44,6 +44,8 @@ def handle_choice(choice):
         create.create_record()
     elif choice == "2":
         read.read_all_records()
+    elif choice == "3":
+        update.update_record()
     else:
         print("Unknown input.")
 
