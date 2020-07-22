@@ -1,5 +1,4 @@
 import mysql.connector
-from mysql.connector import Error
 
 from globals import connection_config, main_table_name
 
