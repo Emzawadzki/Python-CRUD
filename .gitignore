@@ -131,3 +131,6 @@ dmypy.json
 # CSV database
 database.csv
 src/database.csv
+
+# MySQL db credentials
+credentials.py
