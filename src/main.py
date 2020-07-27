@@ -1,10 +1,11 @@
 import mysql.connector
 from mysql.connector import Error
+from getch import getch
 
 from globals import connection_config, main_table_name
 from crud import create, read, update, delete
 
-pick_text = "\nPick one of the options below:\n1) Create new record\n2) Read all existing records\n3) Update record by ID\n4) Remove record by ID\nq) Exit"
+pick_text = "\nPick one of the options below:\n1) Create new record\n2) Read all existing records\n3) Update record by ID\n4) Remove record by ID\nq) Exit\n"
 is_running = True
 
 
@@ -59,5 +60,5 @@ prepare_database()
 # Main loop
 while is_running == True:
     print(pick_text)
-    option = input()
+    option = getch()
     handle_choice(option)

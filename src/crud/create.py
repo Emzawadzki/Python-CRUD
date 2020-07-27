@@ -16,5 +16,5 @@ def create_record():
     connection.commit()
     cursor.close()
     connection.close()
-    print(first_name + last_name + " added to database!")
+    print(first_name + " " + last_name + " added to database!")
     print("[INFO] MySQL connection closed")
