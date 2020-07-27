@@ -10,8 +10,8 @@ def read_all_records():
     query = "SELECT * FROM " + main_table_name
     cursor.execute(query)
     result = cursor.fetchall()
-    for _, first_name, last_name in result:
-        print(first_name + " " + last_name)
+    for id, first_name, last_name in result:
+        print(str(id) + ". " + first_name + " " + last_name)
     cursor.close()
     connection.close()
     print("[INFO] MySQL connection closed")
