@@ -2,7 +2,7 @@
 
 ## About
 
-Python-CRUD is a single CRUD (eureka!) application.
+Python-CRUD is a simple CRUD (eureka!) application used for storing people (relax, only their `name`s and `surname`s).
 Basic functionality covers then:
 
 - **C**reating new record
