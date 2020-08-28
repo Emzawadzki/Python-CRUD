@@ -81,4 +81,11 @@ def create_person():
     return jsonify(response)
 
 
+@app.route('/api/v1/update', methods=['PUT'])
+def update_person():
+    _json = request.json
+    response = update.update_record(_json)
+    return jsonify(response)
+
+
 app.run()
