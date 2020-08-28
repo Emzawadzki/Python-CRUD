@@ -64,8 +64,14 @@ app.config["DEBUG"] = True
 
 @app.route('/api/v1/people/all', methods=['GET'])
 def read_all():
-    records = read.read_all_records()
-    return jsonify(records)
+    response = read.read_all_records()
+    return jsonify(response)
+
+
+@app.route('/api/v1/people/<int:person_id>', methods=['GET'])
+def read_one(person_id):
+    response = read.read_record(person_id)
+    return jsonify(response)
 
 
 app.run()
