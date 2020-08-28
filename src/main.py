@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
-from getch import getch
+import flask
+from flask import jsonify
 
 from globals import connection_config, main_table_name
 from crud import create, read, update, delete
@@ -36,29 +37,35 @@ def prepare_database():
             print("[INFO] MySQL connection closed")
 
 
-def handle_choice(choice):
-    if choice == "q":
-        global is_running
-        is_running = False
-        print("Closing program ...")
-    elif choice == "1":
-        create.create_record()
-    elif choice == "2":
-        read.read_all_records()
-    elif choice == "3":
-        update.update_record()
-    elif choice == "4":
-        delete.delete_record()
-    else:
-        print("Unknown input.")
+# def handle_choice(choice):
+#     if choice == "q":
+#         global is_running
+#         is_running = False
+#         print("Closing program ...")
+#     elif choice == "1":
+#         create.create_record()
+#     elif choice == "2":
+#         read.read_all_records()
+#     elif choice == "3":
+#         update.update_record()
+#     elif choice == "4":
+#         delete.delete_record()
+#     else:
+#         print("Unknown input.")
 
 
 # Program start
 print("Welcome to PyCRUD!")
 prepare_database()
 
-# Main loop
-while is_running == True:
-    print(pick_text)
-    option = getch()
-    handle_choice(option)
+app = flask.Flask(__name__)
+app.config["DEBUG"] = True
+
+
+@app.route('/api/v1/people/all', methods=['GET'])
+def read_all():
+    records = read.read_all_records()
+    return jsonify(records)
+
+
+app.run()

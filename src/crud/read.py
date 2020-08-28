@@ -6,12 +6,11 @@ from globals import connection_config, main_table_name
 def read_all_records():
     connection = mysql.connector.connect(**connection_config)
     print("[INFO] Connected to MySQL Server")
-    cursor = connection.cursor()
+    cursor = connection.cursor(dictionary=True)
     query = "SELECT * FROM " + main_table_name
     cursor.execute(query)
     result = cursor.fetchall()
-    for id, first_name, last_name in result:
-        print(str(id) + ". " + first_name + " " + last_name)
     cursor.close()
     connection.close()
     print("[INFO] MySQL connection closed")
+    return result
