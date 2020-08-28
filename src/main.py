@@ -1,7 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 import flask
-from flask import jsonify
+from flask import jsonify, request
 
 from globals import connection_config, main_table_name
 from crud import create, read, update, delete
@@ -62,7 +62,7 @@ app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
 
-@app.route('/api/v1/people/all', methods=['GET'])
+@app.route('/api/v1/people', methods=['GET'])
 def read_all():
     response = read.read_all_records()
     return jsonify(response)
@@ -71,6 +71,13 @@ def read_all():
 @app.route('/api/v1/people/<int:person_id>', methods=['GET'])
 def read_one(person_id):
     response = read.read_record(person_id)
+    return jsonify(response)
+
+
+@app.route('/api/v1/create', methods=['POST'])
+def create_person():
+    _json = request.json
+    response = create.create_record(_json)
     return jsonify(response)
 
 
