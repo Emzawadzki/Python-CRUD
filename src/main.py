@@ -88,4 +88,10 @@ def update_person():
     return jsonify(response)
 
 
+@app.route('/api/v1/delete/<int:person_id>', methods=['DELETE'])
+def delete_person(person_id):
+    response = delete.delete_record(person_id)
+    return jsonify(response)
+
+
 app.run()

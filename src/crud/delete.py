@@ -2,45 +2,27 @@ import mysql.connector
 from getch import getch
 
 from globals import connection_config, main_table_name
+from res_creator import create_response, create_error
 
 
-def prompt_delete(record):
-    if record == None:
-        print("Record with this ID not found!")
-        return
-    id, first_name, last_name = record
-    print("Removing " + first_name + " " + last_name + ". Are you sure?")
-    while True:
-        print("Type y/n to confirm.")
-        char = getch()
-        if char == 'y':
-            break
-        elif char == 'n':
-            should_remove = False
-            return
-        else:
-            print("Incorrect input!")
+def delete_record(person_id):
     connection = mysql.connector.connect(**connection_config)
     print("[INFO] Connected to MySQL Server")
     cursor = connection.cursor()
-    query = "DELETE FROM " + main_table_name + " WHERE id = %s"
-    cursor.execute(query, (id,))
+
+    select_query = "SELECT EXISTS(SELECT * FROM " + \
+        main_table_name + " WHERE id = %s)"
+    cursor.execute(select_query, (person_id,))
+    (is_exist,) = cursor.fetchone()
+    if is_exist == 0:
+        cursor.close()
+        connection.close()
+        return create_error("person_id_not_found")
+    delete_query = "DELETE FROM " + main_table_name + " WHERE id = %s"
+    cursor.execute(delete_query, (person_id,))
     connection.commit()
     print("Record removed!")
-
-
-def delete_record():
-    record_id = input("Record ID: ")
-    if not record_id.isdigit():
-        print("Incorrect ID - try INT value!")
-        return
-    connection = mysql.connector.connect(**connection_config)
-    print("[INFO] Connected to MySQL Server")
-    cursor = connection.cursor()
-    query = "SELECT * FROM " + main_table_name + " WHERE id = %s"
-    cursor.execute(query, (record_id,))
-    record = cursor.fetchone()
-    prompt_delete(record)
     cursor.close()
     connection.close()
     print("[INFO] MySQL connection closed")
+    return create_response(None)
