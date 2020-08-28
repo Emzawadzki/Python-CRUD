@@ -6,9 +6,6 @@ from flask import jsonify, request
 from globals import connection_config, main_table_name
 from crud import create, read, update, delete
 
-pick_text = "\nPick one of the options below:\n1) Create new record\n2) Read all existing records\n3) Update record by ID\n4) Remove record by ID\nq) Exit\n"
-is_running = True
-
 
 def prepare_database():
     try:
@@ -37,24 +34,7 @@ def prepare_database():
             print("[INFO] MySQL connection closed")
 
 
-# def handle_choice(choice):
-#     if choice == "q":
-#         global is_running
-#         is_running = False
-#         print("Closing program ...")
-#     elif choice == "1":
-#         create.create_record()
-#     elif choice == "2":
-#         read.read_all_records()
-#     elif choice == "3":
-#         update.update_record()
-#     elif choice == "4":
-#         delete.delete_record()
-#     else:
-#         print("Unknown input.")
-
-
-# Program start
+# Server start
 print("Welcome to PyCRUD!")
 prepare_database()
 
