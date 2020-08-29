@@ -2,6 +2,7 @@ import mysql.connector
 from mysql.connector import Error
 import flask
 from flask import jsonify, request
+from flask_cors import CORS
 
 from globals import connection_config, main_table_name
 from crud import create, read, update, delete
@@ -40,6 +41,7 @@ prepare_database()
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
+CORS(app)
 
 
 @app.route('/api/v1/people', methods=['GET'])
