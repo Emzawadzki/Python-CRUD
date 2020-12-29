@@ -27,3 +27,12 @@ Application requires the following installed on you machine:
 - mysql-connector-python
 - flask
 - flask_cors
+
+## How to run
+
+- make sure you fulfill all the prequisities
+- create `credentials.py` file (based on `.example` file)
+- start app via command:
+```
+python3 src/main.py
+```
