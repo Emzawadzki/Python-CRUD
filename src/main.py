@@ -4,13 +4,13 @@ import flask
 from flask import jsonify, request
 from flask_cors import CORS
 
-from globals import connection_config, db_name, main_table_name
+from globals import initial_connection_config, db_name, main_table_name
 from crud import create, read, update, delete
 
 
 def prepare_database():
     try:
-        connection = mysql.connector.connect(**connection_config)
+        connection = mysql.connector.connect(**initial_connection_config)
         if connection.is_connected():
             print("[INFO] Connected to MySQL Server")
             cursor = connection.cursor()
