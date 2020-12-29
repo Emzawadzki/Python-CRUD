@@ -18,3 +18,12 @@ This repository stores multiple versions of application. For CLI versions releas
   - using CSV file as database (`cc` - CLI CSV)
   - using MySQL database (`cs` - CLI SQL)
 - API using MySQL database (no version prefix)
+
+## Prequisities (API version)
+
+Application requires the following installed on you machine:
+
+- Python3
+- mysql-connector-python
+- flask
+- flask_cors
