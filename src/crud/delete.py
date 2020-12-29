@@ -1,5 +1,4 @@
 import mysql.connector
-from getch import getch
 
 from globals import connection_config, main_table_name
 from res_creator import create_response, create_error
