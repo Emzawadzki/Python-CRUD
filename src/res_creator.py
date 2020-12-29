@@ -1,14 +1,15 @@
-def create_error(error):
+from flask_api import status
+
+
+def create_error(error, custom_status):
     return {
         "data": None,
         "error": error,
-        "status": "error"
-    }
+    }, custom_status
 
 
-def create_response(data):
+def create_response(data, custom_status=status.HTTP_200_OK):
     return {
         "data": data,
         "error": None,
-        "status": "success"
-    }
+    }, custom_status

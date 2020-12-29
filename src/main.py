@@ -1,8 +1,8 @@
 import mysql.connector
 from mysql.connector import Error
-import flask
-from flask import jsonify, request
+from flask import request
 from flask_cors import CORS
+from flask_api import FlaskAPI
 
 from globals import initial_connection_config, db_name, main_table_name
 from crud import create, read, update, delete
@@ -31,7 +31,7 @@ def prepare_database():
     except Error as e:
         print("[INFO] Error while connecting to MySQL", e)
     finally:
-        if (connection.is_connected()):
+        if connection.is_connected():
             cursor.close()
             connection.close()
             print("[INFO] MySQL connection closed")
@@ -41,7 +41,7 @@ def prepare_database():
 print("Welcome to PyCRUD!")
 prepare_database()
 
-app = flask.Flask(__name__)
+app = FlaskAPI(__name__)
 app.config["DEBUG"] = True
 CORS(app)
 
@@ -49,33 +49,33 @@ CORS(app)
 @app.route('/api/v1/people', methods=['GET'])
 def read_all():
     response = read.read_all_records()
-    return jsonify(response)
+    return response
 
 
 @app.route('/api/v1/people/<int:person_id>', methods=['GET'])
 def read_one(person_id):
     response = read.read_record(person_id)
-    return jsonify(response)
+    return response
 
 
 @app.route('/api/v1/create', methods=['POST'])
 def create_person():
     _json = request.json
     response = create.create_record(_json)
-    return jsonify(response)
+    return response
 
 
-@app.route('/api/v1/update', methods=['PUT'])
-def update_person():
+@app.route('/api/v1/update/<int:person_id>', methods=['PUT'])
+def update_person(person_id):
     _json = request.json
-    response = update.update_record(_json)
-    return jsonify(response)
+    response = update.update_record(person_id, _json)
+    return response
 
 
 @app.route('/api/v1/delete/<int:person_id>', methods=['DELETE'])
 def delete_person(person_id):
     response = delete.delete_record(person_id)
-    return jsonify(response)
+    return response
 
 
 app.run()

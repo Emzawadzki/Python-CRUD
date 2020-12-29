@@ -1,5 +1,5 @@
 import mysql.connector
-
+from flask_api import status
 from globals import connection_config, main_table_name
 from res_creator import create_response, create_error
 
@@ -16,7 +16,7 @@ def delete_record(person_id):
     if is_exist == 0:
         cursor.close()
         connection.close()
-        return create_error("person_id_not_found")
+        return create_error("person_id_not_found", status.HTTP_404_NOT_FOUND)
     delete_query = "DELETE FROM " + main_table_name + " WHERE id = %s"
     cursor.execute(delete_query, (person_id,))
     connection.commit()
