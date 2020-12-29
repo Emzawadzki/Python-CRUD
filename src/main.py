@@ -60,15 +60,13 @@ def read_one(person_id):
 
 @app.route('/api/v1/create', methods=['POST'])
 def create_person():
-    _json = request.json
-    response = create.create_record(_json)
+    response = create.create_record(request.data)
     return response
 
 
 @app.route('/api/v1/update/<int:person_id>', methods=['PUT'])
 def update_person(person_id):
-    _json = request.json
-    response = update.update_record(person_id, _json)
+    response = update.update_record(person_id, request.data)
     return response
 
 
