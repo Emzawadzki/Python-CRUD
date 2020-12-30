@@ -1,5 +1,5 @@
 import mysql.connector
-
+from flask_api import status
 from globals import connection_config, main_table_name
 from res_creator import create_response, create_error
 
@@ -28,5 +28,5 @@ def read_record(person_id):
     connection.close()
     print("[INFO] MySQL connection closed")
     if row is None:
-        return create_error("person_not_found")
+        return create_error("person_not_found", status.HTTP_404_NOT_FOUND)
     return create_response(row)

@@ -1,14 +1,14 @@
 import mysql.connector
-
+from flask_api import status
 from globals import connection_config, main_table_name
 from res_creator import create_response, create_error
 
 
 def create_record(request):
     if "first_name" not in request:
-        return create_error("first_name_required")
+        return create_error("first_name_required", status.HTTP_400_BAD_REQUEST)
     if "last_name" not in request:
-        return create_error("last_name_required")
+        return create_error("last_name_required", status.HTTP_400_BAD_REQUEST)
     first_name = request["first_name"]
     last_name = request["last_name"]
     connection = mysql.connector.connect(**connection_config)
@@ -23,4 +23,4 @@ def create_record(request):
     connection.close()
     print(first_name + " " + last_name + " added to database!")
     print("[INFO] MySQL connection closed")
-    return create_response(None)
+    return create_response(None, status.HTTP_201_CREATED)
